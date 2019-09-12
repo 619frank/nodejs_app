@@ -1,0 +1,38 @@
+{
+  "name": "nodejs_app",
+  "version": "1.0.0",
+  "description": "This app has oauth and basic rest apis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/619frank/nodejs_app.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "oauth",
+    "restapi"
+  ],
+  "author": "619frank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/619frank/nodejs_app/issues"
+  },
+  "homepage": "https://github.com/619frank/nodejs_app#readme",
+  "dependencies": {
+    "consolidate": "^0.15.1",
+    "epilogue": "^0.7.1",
+    "express": "^4.17.1",
+    "googleapis": "^43.0.0",
+    "mustache": "^3.0.3",
+    "sequelize": "^5.18.4",
+    "sqlite3": "^4.1.0",
+    "util": "^0.12.1"
+  },
+  "devDependencies": {
+    "standard": "^14.2.0"
+  }
+}
