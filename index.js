@@ -28,12 +28,25 @@ app.get('/google_signup', function(req, res) {
 });
 app.get('/google-auth', function(req, res) {
     //keys = Object.keys(req.params);
-    console.log(req.query);
+   
     let getDetails = require('./src/google-util.js')
     let details =  getDetails.getGoogleAccountFromCode(req.query.code)
     details.then(function(details){
         console.log(details)
+// details ={ email :'test@test.com', first_name: 'firstname test', last_name: 'lastname test' ,picture:'picture'}
+
+        let user = require('./models/user')
+        let myData = new user.User(details)
+        myData.save()
+        .then(item => {
+            res.send("item saved to database");
+        })
+        .catch(err => {
+            res.status(400).send("unable to save to database");
+        });
+    
     });
+    
     res.sendStatus(200)
 });
 startServer()
