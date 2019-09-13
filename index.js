@@ -33,8 +33,6 @@ app.get('/google-auth', function(req, res) {
     let details =  getDetails.getGoogleAccountFromCode(req.query.code)
     details.then(function(details){
         console.log(details)
-// details ={ email :'test@test.com', first_name: 'firstname test', last_name: 'lastname test' ,picture:'picture'}
-
         let user = require('./models/user')
         let myData = new user.User(details)
         myData.save()
@@ -46,7 +44,5 @@ app.get('/google-auth', function(req, res) {
         });
     
     });
-    
-    res.sendStatus(200)
 });
 startServer()
