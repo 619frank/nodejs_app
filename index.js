@@ -26,4 +26,14 @@ app.get('/google_signup', function(req, res) {
     res.render(__dirname + "/views/auth_button.html", {googleUrl:googleUrl});
 
 });
+app.get('/google-auth', function(req, res) {
+    //keys = Object.keys(req.params);
+    console.log(req.query);
+    let getDetails = require('./src/google-util.js')
+    let details =  getDetails.getGoogleAccountFromCode(req.query.code)
+    details.then(function(details){
+        console.log(details)
+    });
+    res.sendStatus(200)
+});
 startServer()

@@ -3,9 +3,9 @@
 const {google} = require('../node_modules/googleapis');
 
 const googleConfig = {
-  clientId: '780769733453-of4mjamgp6c5jvcm1sigq5n1q16g8ett.apps.googleusercontent.com',
-  clientSecret: 'nnOkbK0ppT9b5Z9TpIlsgvMd', 
-  redirect: 'https://https://90624caf.ngrok.io/google-auth' // this must match your google api settings
+  clientId: '780769733453-hrum78ec8ori8irnddu4glq2d3ihb0cp.apps.googleusercontent.com',
+  clientSecret: 'RCZr4DTwNcJpbU3_J51y43t-', 
+  redirect: 'https://40531e95.ngrok.io/google-auth' // this must match your google api settings
 };
 
 /**
@@ -22,7 +22,8 @@ function createConnection() {
  * This scope tells google what information we want to request.
  */
 const defaultScope = [
-  'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
 ];
 
 /**
@@ -46,5 +47,25 @@ function urlGoogle() {
 }
 
 module.exports = {
-   urlGoogle 
+   urlGoogle,getGoogleAccountFromCode 
 }
+async function getGoogleAccountFromCode(code) {
+     
+    const auth = createConnection();
+    const data = await auth.getToken(code);
+    const tokens = data.tokens;
+    auth.setCredentials(tokens);
+    let decoded = jwtDecode(tokens.id_token)
+    return { email : decoded.email, first_name: decoded.given_name, last_name: decoded.family_name,picture:decoded.picture}
+   
+}
+
+function jwtDecode(token){
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const buff =  Buffer.from(base64, 'base64');
+    const payloadinit = buff.toString('ascii');
+    const payload = JSON.parse(payloadinit);
+    return payload;
+}
+
