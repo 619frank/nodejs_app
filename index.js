@@ -45,4 +45,13 @@ app.get('/google-auth', function(req, res) {
     
     });
 });
+
+app.get('/getcustomers',function(req, res){
+    let user = require('./models/user')
+    user = user.User.find({},function(err, users){
+        res.status(200).send(users)
+        console.log(users)
+    })
+
+})
 startServer()
